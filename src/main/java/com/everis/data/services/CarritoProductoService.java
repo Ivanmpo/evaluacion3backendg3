@@ -1,6 +1,7 @@
 package com.everis.data.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -36,6 +37,16 @@ public class CarritoProductoService  {
 
 	public CarritoProducto findById(Long id) {
 		return cpr.getById(id);
+		
+	}
+	
+	public boolean ifExistById(Long id) {
+	
+		Optional<CarritoProducto> oCarritoProducto = cpr.findById(id);
+		if(oCarritoProducto.isPresent()) {
+			return true;
+		}
+		return false;
 		
 	}
 

@@ -48,15 +48,23 @@ public class CarritoController {
 	//Eliminar
 	@RequestMapping(value="/eliminar/{id}", method = RequestMethod.GET)
 	public String eliminar(@PathVariable("id") Long id) {
-		CarritoProducto cpto = cps.findById(id);
-		Producto producto = cpto.getProducto();
-		producto.setStock( String.valueOf(Integer.parseInt(producto.getStock()) + 1 ) ) ;
-		ps.modificarProducto(producto);
-		Carrito carrito = cpto.getCarrito();
-		carrito.setValor_total(String.valueOf(Integer.parseInt(carrito.getValor_total()) - Integer.parseInt(producto.getValor())) );
-		cs.modificarCarrito(carrito);
-		cps.eliminarProductoCarro(id);
-		return "redirect:/tienda";
+		
+		System.out.println("AYAYAYAI");
+		System.out.println(cps.ifExistById(id));
+		if(cps.ifExistById(id)) {
+			CarritoProducto cpto = cps.findById(id);
+			Producto producto = cpto.getProducto();
+			producto.setStock( String.valueOf(Integer.parseInt(producto.getStock()) + 1 ) ) ;
+			ps.modificarProducto(producto);
+			Carrito carrito = cpto.getCarrito();
+			carrito.setValor_total(String.valueOf(Integer.parseInt(carrito.getValor_total()) - Integer.parseInt(producto.getValor())) );
+			cs.modificarCarrito(carrito);
+			cps.eliminarProductoCarro(id);
+			return "redirect:/tienda";
+		}else {
+			System.out.println("no existe");
+			return "redirect:/tienda";	
+		}
 	}
 		
 		

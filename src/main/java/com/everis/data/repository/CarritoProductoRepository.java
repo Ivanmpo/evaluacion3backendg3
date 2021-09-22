@@ -9,4 +9,5 @@ import com.everis.data.models.CarritoProducto;
 
 public interface CarritoProductoRepository extends JpaRepository<CarritoProducto, Long>{
 
+	CarritoProducto getById(Long id);
 }
